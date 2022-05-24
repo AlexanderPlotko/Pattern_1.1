@@ -20,9 +20,9 @@ public class PersonBuilder {
         }
         return this;
     }
-    public PersonBuilder setAge(int age) throws IllegalAccessException{
+    public PersonBuilder setAge(int age) throws IllegalArgumentException{
         if (age < 0 || age > 130) {
-            throw new IllegalAccessException ("не корректно задан возраст");
+            throw new IllegalArgumentException ("не корректно задан возраст");
         } else {
             this.age = age;
         }
@@ -35,7 +35,9 @@ public class PersonBuilder {
 
     public Person build() {
         Person person;
-        if (age == 0) {
+        if (name == null || surname == null) {
+            throw new IllegalStateException("Не возможно создать объект Person");
+        } else if (age == 0) {
             person = new Person(name, surname);
         } else {
             person = new Person(name, surname, age);
